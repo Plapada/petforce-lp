@@ -1,0 +1,9 @@
+node_modules
+.next
+.env
+.firecrawl
+.playwright-cli
+scripts
+prompts
+BRANDING
+*.output
