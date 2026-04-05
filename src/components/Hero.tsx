@@ -99,7 +99,7 @@ function ParticleField() {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center px-5 md:px-8 overflow-hidden pt-24 pb-12 md:pt-0 md:pb-0">
+    <section className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center px-5 md:px-8 overflow-hidden pt-32 pb-12 md:pt-24 md:pb-0">
       {/* Noise — high-res */}
       <div className="absolute -top-[20rem] -left-[20rem] w-[calc(100%+40rem)] h-[calc(100%+40rem)] opacity-[0.03] animate-noise pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNhKSIvPjwvc3ZnPg==')]" />
 
