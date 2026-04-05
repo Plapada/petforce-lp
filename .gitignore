@@ -7,3 +7,5 @@ scripts
 prompts
 BRANDING
 *.output
+
+.vercel

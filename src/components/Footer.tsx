@@ -38,11 +38,11 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative py-16 md:py-24 px-4 md:px-8 border-t border-white/5">
+    <footer className="relative py-12 md:py-24 px-5 md:px-8 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
           {/* Brand */}
-          <div className="max-w-sm">
+          <div className="col-span-2 md:col-span-1">
             <a href="#" className="mb-4 block">
               <Image
                 src="/logo-horizontal.png"
