@@ -29,14 +29,14 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100, damping: 20, delay: 3 }}
         >
-          <span className="gradient-text-animated text-xl md:text-4xl font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] font-sora drop-shadow-[0_0_30px_rgba(57,255,20,0.3)]">
+          <span className="gradient-text-animated text-2xl md:text-5xl font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] font-sora drop-shadow-[0_0_30px_rgba(57,255,20,0.3)]">
             PetForce
           </span>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          className="font-sora text-[clamp(2rem,10vw,7rem)] font-normal tracking-[-0.04em] leading-[0.92] mb-5 md:mb-8"
+          className="font-sora text-[clamp(2rem,6vw,5rem)] font-normal tracking-[-0.04em] leading-[0.95] mb-5 md:mb-8"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 80, damping: 20, delay: 3.15 }}
