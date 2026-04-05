@@ -1,25 +1,198 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const WHATSAPP_URL =
   "https://wa.me/5500000000000?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20PetForce%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os.";
 
+/* ── Floating particles canvas ── */
+function ParticleField() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    let raf: number;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    const PARTICLE_COUNT = Math.min(60, Math.floor(canvas.offsetWidth / 25));
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+      x: Math.random() * canvas.offsetWidth,
+      y: Math.random() * canvas.offsetHeight,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.4 + 0.1,
+      pulse: Math.random() * Math.PI * 2,
+    }));
+
+    const draw = (t: number) => {
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+
+        const flicker = Math.sin(t * 0.001 + p.pulse) * 0.15 + 0.85;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(57, 255, 20, ${p.alpha * flicker})`;
+        ctx.fill();
+      }
+
+      /* connection lines between nearby particles */
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = dx * dx + dy * dy;
+          if (dist < 12000) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(57, 255, 20, ${0.06 * (1 - dist / 12000)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 1 }}
+    />
+  );
+}
+
 export default function Hero() {
   return (
     <section className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center px-5 md:px-8 overflow-hidden pt-24 pb-12 md:pt-0 md:pb-0">
-      {/* Noise */}
+      {/* Noise — high-res */}
       <div className="absolute -top-[20rem] -left-[20rem] w-[calc(100%+40rem)] h-[calc(100%+40rem)] opacity-[0.03] animate-noise pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNhKSIvPjwvc3ZnPg==')]" />
 
-      {/* Ambient glows — smaller on mobile */}
-      <div className="absolute top-[15%] -left-[20%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-accent-1/5 blur-[120px] md:blur-[200px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[10%] -right-[20%] w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-accent-3/5 blur-[100px] md:blur-[180px] rounded-full pointer-events-none" />
+      {/* ── 4K Ambient orbs — larger, sharper, animated ── */}
+      <motion.div
+        className="absolute top-[10%] -left-[10%] w-[400px] md:w-[900px] h-[400px] md:h-[900px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(0,255,163,0.08) 0%, rgba(0,255,163,0.02) 40%, transparent 70%)",
+          filter: "blur(80px)",
+        }}
+        animate={{
+          x: [0, 30, -20, 0],
+          y: [0, -40, 20, 0],
+          scale: [1, 1.08, 0.95, 1],
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-[5%] -right-[10%] w-[350px] md:w-[800px] h-[350px] md:h-[800px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(220,255,80,0.07) 0%, rgba(220,255,80,0.02) 40%, transparent 70%)",
+          filter: "blur(80px)",
+        }}
+        animate={{
+          x: [0, -25, 15, 0],
+          y: [0, 30, -25, 0],
+          scale: [1, 0.94, 1.06, 1],
+        }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute top-[40%] left-[30%] w-[200px] md:w-[500px] h-[200px] md:h-[500px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(57,255,20,0.05) 0%, transparent 60%)",
+          filter: "blur(100px)",
+        }}
+        animate={{
+          x: [0, 50, -30, 0],
+          y: [0, -20, 40, 0],
+          opacity: [0.6, 1, 0.7, 0.6],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-      {/* Decorative circles — hidden on mobile */}
+      {/* ── Animated grid overlay ── */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(57,255,20,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(57,255,20,0.3) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }}
+      />
+
+      {/* ── Particle field canvas ── */}
+      <ParticleField />
+
+      {/* ── Decorative rings — animated, scaled for 4K ── */}
       <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        <div className="absolute w-[600px] h-[600px] border border-white/[0.03] rounded-full -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute w-[400px] h-[400px] border border-white/[0.05] rounded-full -translate-x-1/2 -translate-y-1/2" />
+        <motion.div
+          className="absolute w-[700px] h-[700px] border border-white/[0.03] rounded-full -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute w-[500px] h-[500px] border border-accent-2/[0.04] rounded-full -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute w-[300px] h-[300px] border border-white/[0.02] rounded-full -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: 360, scale: [1, 1.05, 1] }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        />
       </div>
+
+      {/* ── Accent pulse rings (behind content) ── */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none"
+        style={{
+          border: "1px solid rgba(57,255,20,0.06)",
+        }}
+        animate={{ scale: [1, 2.5], opacity: [0.15, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeOut" }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none"
+        style={{
+          border: "1px solid rgba(0,255,163,0.05)",
+        }}
+        animate={{ scale: [1, 2.5], opacity: [0.12, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeOut", delay: 2 }}
+      />
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
         {/* Tag */}
@@ -110,21 +283,6 @@ export default function Hero() {
           </a>
         </motion.div>
       </div>
-
-      {/* Scroll indicator — hidden on mobile */}
-      <motion.div
-        className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-3"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 4, duration: 0.8 }}
-      >
-        <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/20">Scroll</span>
-        <motion.div
-          className="w-[1px] h-8 bg-gradient-to-b from-white/30 to-transparent"
-          animate={{ scaleY: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
     </section>
   );
 }
