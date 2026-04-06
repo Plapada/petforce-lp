@@ -196,6 +196,28 @@ export default function Services() {
           </p>
         </motion.div>
 
+        {/* Flatlay showcase */}
+        <motion.div
+          className="mb-10 md:mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+        >
+          <div className="bg-white/[0.03] ring-1 ring-white/[0.06] p-1 md:p-1.5 rounded-[1.5rem] md:rounded-[2rem] max-w-3xl">
+            <div className="relative rounded-[calc(1.5rem-0.25rem)] md:rounded-[calc(2rem-0.375rem)] overflow-hidden">
+              <Image
+                src="/services-flatlay.png"
+                alt="Marketing digital — ferramentas e estratégias para o mercado pet"
+                width={800}
+                height={450}
+                className="w-full h-auto"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/30 via-transparent to-transparent" />
+            </div>
+          </div>
+        </motion.div>
+
         {/* Services grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {services.map((service, i) => (
