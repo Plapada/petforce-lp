@@ -47,9 +47,9 @@ export default function Footer() {
               <Image
                 src="/logo-horizontal.png"
                 alt="PetForce"
-                width={150}
-                height={40}
-                className="h-9 w-auto"
+                width={340}
+                height={80}
+                className="h-10 w-auto"
               />
             </a>
             <p className="text-white/30 font-light leading-relaxed text-sm">

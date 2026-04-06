@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 const WHATSAPP_URL =
@@ -195,15 +196,26 @@ export default function Hero() {
       />
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
-        {/* Tag */}
+        {/* Brand tag — logo icon + styled name matching the logo */}
         <motion.div
-          className="mb-5 md:mb-8"
+          className="mb-6 md:mb-10 flex items-center gap-3 md:gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100, damping: 20, delay: 3 }}
         >
-          <span className="gradient-text-animated text-2xl md:text-5xl font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] font-sora drop-shadow-[0_0_30px_rgba(57,255,20,0.3)]">
-            PetForce
+          <Image
+            src="/logo-vertical.png"
+            alt=""
+            width={206}
+            height={175}
+            className="h-12 md:h-20 w-auto"
+            aria-hidden="true"
+            priority
+          />
+          <span className="font-sora text-3xl md:text-6xl font-semibold tracking-tight drop-shadow-[0_0_30px_rgba(57,255,20,0.2)]">
+            <span className="gradient-text-animated">Pet</span>
+            <span className="text-white/70">Force</span>
+            <span className="gradient-text text-sm md:text-xl align-super ml-1">&reg;</span>
           </span>
         </motion.div>
 

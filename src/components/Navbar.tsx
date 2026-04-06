@@ -55,9 +55,9 @@ export default function Navbar() {
             <Image
               src="/logo-horizontal.png"
               alt="PetForce"
-              width={130}
-              height={34}
-              className="h-7 w-auto"
+              width={340}
+              height={80}
+              className="h-9 md:h-10 w-auto"
               priority
             />
           </a>
