@@ -204,10 +204,10 @@ export default function Hero() {
           transition={{ type: "spring", stiffness: 100, damping: 20, delay: 3 }}
         >
           <Image
-            src="/logo-vertical.png"
+            src="/logo-icon-hero.png"
             alt=""
-            width={206}
-            height={175}
+            width={300}
+            height={297}
             className="h-12 md:h-20 w-auto"
             aria-hidden="true"
             priority
