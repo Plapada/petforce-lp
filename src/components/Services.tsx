@@ -219,15 +219,9 @@ export default function Services() {
         </motion.div>
 
         {/* Desktop: sticky sidebar + cards grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 items-start">
-          {/* Sticky sidebar image — desktop only */}
-          <motion.div
-            className="hidden lg:block sticky top-28"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ type: "spring", stiffness: 80, damping: 20 }}
-          >
+        <div className="hidden lg:grid lg:grid-cols-[280px_1fr] gap-6">
+          {/* Sticky sidebar wrapper — plain div, no framer motion */}
+          <div className="self-start" style={{ position: "sticky", top: "7rem" }}>
             <div className="bg-white/[0.03] ring-1 ring-white/[0.06] p-1.5 rounded-[2rem]">
               <div className="relative rounded-[calc(2rem-0.375rem)] overflow-hidden">
                 <Image
@@ -240,14 +234,21 @@ export default function Services() {
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/40 via-transparent to-transparent" />
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Services grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          {/* Services grid — desktop */}
+          <div className="grid grid-cols-2 gap-5">
             {services.map((service, i) => (
               <ServiceCard key={service.title} service={service} index={i} />
             ))}
           </div>
+        </div>
+
+        {/* Mobile: simple grid without sidebar */}
+        <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+          {services.map((service, i) => (
+            <ServiceCard key={service.title} service={service} index={i} />
+          ))}
         </div>
       </div>
     </section>
