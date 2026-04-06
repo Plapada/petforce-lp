@@ -52,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${sora.variable} ${outfit.variable}`}>
-      <body className="antialiased overflow-x-hidden">{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
