@@ -57,7 +57,7 @@ export default function Navbar() {
               alt="PetForce"
               width={340}
               height={80}
-              className="h-9 md:h-10 w-auto"
+              className="h-7 md:h-10 w-auto max-w-[120px] md:max-w-none"
               priority
             />
           </a>

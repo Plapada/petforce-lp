@@ -208,14 +208,14 @@ export default function Hero() {
             alt=""
             width={300}
             height={297}
-            className="h-12 md:h-20 w-auto"
+            className="h-10 md:h-20 w-auto shrink-0"
             aria-hidden="true"
             priority
           />
-          <span className="font-sora text-3xl md:text-6xl font-semibold tracking-tight drop-shadow-[0_0_30px_rgba(57,255,20,0.2)]">
+          <span className="font-sora text-2xl md:text-6xl font-semibold tracking-tight drop-shadow-[0_0_30px_rgba(57,255,20,0.2)]">
             <span className="gradient-text-animated">Pet</span>
             <span className="text-white/70">Force</span>
-            <span className="gradient-text text-sm md:text-xl align-super ml-1">&reg;</span>
+            <span className="gradient-text text-[10px] md:text-xl align-super ml-0.5 md:ml-1">&reg;</span>
           </span>
         </motion.div>
 
