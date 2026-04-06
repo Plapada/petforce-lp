@@ -48,7 +48,7 @@ export default function Navbar() {
             maxWidth: isScrolled ? 780 : 1100,
           }}
           transition={{ type: "spring", stiffness: 120, damping: 25 }}
-          style={{ width: "100%" }}
+          style={{ width: "100%", maxWidth: "calc(100vw - 2rem)" }}
         >
           {/* Logo */}
           <a href="#" className="shrink-0" data-cursor="hover">

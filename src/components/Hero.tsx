@@ -195,7 +195,7 @@ export default function Hero() {
         transition={{ duration: 4, repeat: Infinity, ease: "easeOut", delay: 2 }}
       />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full overflow-hidden px-1">
         {/* Brand tag — logo icon + styled name matching the logo */}
         <motion.div
           className="mb-6 md:mb-10 flex items-center gap-3 md:gap-4"
