@@ -196,36 +196,11 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* Flatlay + Services split */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 items-start">
-          {/* Flatlay image sidebar */}
-          <motion.div
-            className="hidden lg:block"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ type: "spring", stiffness: 80, damping: 20 }}
-          >
-            <div className="bg-white/[0.03] ring-1 ring-white/[0.06] p-1.5 rounded-[2rem]">
-              <div className="relative rounded-[calc(2rem-0.375rem)] overflow-hidden">
-                <Image
-                  src="/services-flatlay.png"
-                  alt="Marketing digital — ferramentas e estratégias"
-                  width={280}
-                  height={280}
-                  className="w-full h-auto aspect-square object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/40 via-transparent to-transparent" />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Services grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-5">
-            {services.map((service, i) => (
-              <ServiceCard key={service.title} service={service} index={i} />
-            ))}
-          </div>
+        {/* Services grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+          {services.map((service, i) => (
+            <ServiceCard key={service.title} service={service} index={i} />
+          ))}
         </div>
       </div>
     </section>
