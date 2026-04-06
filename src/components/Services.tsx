@@ -200,7 +200,7 @@ export default function Services() {
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 items-start">
           {/* Flatlay image sidebar */}
           <motion.div
-            className="hidden lg:block sticky top-28"
+            className="hidden lg:block"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
